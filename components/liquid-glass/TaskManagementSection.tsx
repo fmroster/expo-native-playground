@@ -3,7 +3,7 @@ import {
   HStack,
   Picker,
   Section,
-  Switch,
+  Toggle,
   Text,
   VStack,
 } from "@expo/ui/swift-ui";
@@ -60,17 +60,15 @@ export function TaskManagementSection() {
         <VStack spacing={8}>
           {filteredTasks.map((task) => (
             <HStack key={task.id} spacing={12} alignment="center">
-              <Text size={24}>{task.emoji}</Text>
+              <Text>{task.emoji}</Text>
               <VStack spacing={4} alignment="leading">
                 <HStack spacing={8} alignment="center">
                   <Text
-                    size={16}
                     modifiers={task.completed ? [foregroundStyle("gray")] : []}
                   >
                     {task.title}
                   </Text>
                   <Text
-                    size={12}
                     modifiers={[
                       foregroundStyle(getPriorityColor(task.priority)),
                     ]}
@@ -78,16 +76,16 @@ export function TaskManagementSection() {
                     {task.priority.toUpperCase()}
                   </Text>
                 </HStack>
-                <Text size={14} modifiers={[foregroundStyle("gray")]}>
+                <Text modifiers={[foregroundStyle("gray")]}>
                   {task.description}
                 </Text>
-                <Text size={12} modifiers={[foregroundStyle("gray")]}>
+                <Text modifiers={[foregroundStyle("gray")]}>
                   {`Due: ${task.dueDate.toLocaleDateString()}`}
                 </Text>
               </VStack>
-              <Switch
-                value={task.completed}
-                onValueChange={() => toggleTask(task.id)}
+              <Toggle
+                isOn={task.completed}
+                onIsOnChange={() => toggleTask(task.id)}
               />
             </HStack>
           ))}

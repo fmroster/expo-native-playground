@@ -10,7 +10,7 @@ import {
   Picker,
   Section,
   Spacer,
-  Switch,
+  Toggle,
   Text,
   VStack,
 } from "@expo/ui/swift-ui";
@@ -66,9 +66,6 @@ export function ProfileSection() {
         <VStack alignment="leading">
           <Text
             modifiers={[foregroundStyle(profile.theme)]}
-            color={profile.theme}
-            size={22}
-            weight="bold"
           >
             {profile.name}
           </Text>
@@ -79,8 +76,6 @@ export function ProfileSection() {
       <HStack spacing={8}>
         <ExpoUIImage
           systemName="airplane"
-          color="white"
-          size={18}
           modifiers={[
             frame({ width: 28, height: 28 }),
             background("#ffa500"),
@@ -89,7 +84,7 @@ export function ProfileSection() {
         />
         <Text>Airplane Mode</Text>
         <Spacer />
-        <Switch value={isAirplaneMode} onValueChange={setIsAirplaneMode} />
+        <Toggle isOn={isAirplaneMode} onIsOnChange={setIsAirplaneMode} />
       </HStack>
 
       <LabeledContent label="Bottom Sheet">
@@ -149,7 +144,7 @@ export function ProfileSection() {
       </LabeledContent>
 
       <DisclosureGroup
-        onStateChange={setProfileExpanded}
+        onIsExpandedChange={setProfileExpanded}
         isExpanded={profileExpanded}
         label="Profile Settings"
       >
@@ -167,7 +162,7 @@ export function ProfileSection() {
           label="Theme Color"
           selection={profile.theme}
           supportsOpacity={false}
-          onValueChanged={(color) => updateProfile({ theme: color })}
+          onSelectionChange={(color) => updateProfile({ theme: color })}
         />
       </DisclosureGroup>
 
