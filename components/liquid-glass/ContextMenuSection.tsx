@@ -4,8 +4,8 @@ import {
   Host,
   HStack,
   Section,
-  Submenu,
-  Switch,
+  Menu,
+  Toggle,
   Text,
   VStack,
 } from "@expo/ui/swift-ui";
@@ -152,12 +152,11 @@ export function ContextMenuSection() {
 
       case "switch":
         return (
-          <Switch
+          <Toggle
             key={index}
-            value={option.value}
+            isOn={option.value}
             label={option.title}
-            variant="checkbox"
-            onValueChange={(value) => {
+            onIsOnChange={(value) => {
               updateContextMenuState(option.title, value);
             }}
           />
@@ -165,16 +164,15 @@ export function ContextMenuSection() {
 
       case "submenu":
         return (
-          <Submenu
+          <Menu
             key={index}
-            button={
-              <Button systemImage={option.systemImage} label={option.title} />
-            }
+            label={option.title}
+            systemImage={option.systemImage}
           >
             {option.items?.map((subItem: any, subIndex: number) =>
               renderMenuOption(subItem, subIndex)
             )}
-          </Submenu>
+          </Menu>
         );
 
       default:
@@ -185,11 +183,11 @@ export function ContextMenuSection() {
   return (
     <Section title="🔗 Context Menu & Actions">
       <VStack spacing={16}>
-        <Text size={16}>Interactive Context Menu</Text>
+        <Text>Interactive Context Menu</Text>
 
         <VStack spacing={12}>
-          <Text size={14}>Menu Demo</Text>
-          <Text size={12} modifiers={[foregroundStyle("gray")]}>
+          <Text>Menu Demo</Text>
+          <Text modifiers={[foregroundStyle("gray")]}>
             Long press the menu button below to see nested context menu options
           </Text>
 
@@ -211,19 +209,19 @@ export function ContextMenuSection() {
             </Host>
 
             <VStack spacing={4} alignment="leading">
-              <Text size={12} modifiers={[foregroundStyle("gray")]}>
+              <Text modifiers={[foregroundStyle("gray")]}>
                 Context Menu Features:
               </Text>
-              <Text size={10} modifiers={[foregroundStyle("gray")]}>
+              <Text modifiers={[foregroundStyle("gray")]}>
                 • Nested submenus
               </Text>
-              <Text size={10} modifiers={[foregroundStyle("gray")]}>
+              <Text modifiers={[foregroundStyle("gray")]}>
                 • Toggle switches
               </Text>
-              <Text size={10} modifiers={[foregroundStyle("gray")]}>
+              <Text modifiers={[foregroundStyle("gray")]}>
                 • Destructive actions
               </Text>
-              <Text size={10} modifiers={[foregroundStyle("gray")]}>
+              <Text modifiers={[foregroundStyle("gray")]}>
                 • System icons
               </Text>
             </VStack>

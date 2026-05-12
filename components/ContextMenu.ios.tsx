@@ -3,8 +3,8 @@ import {
   ContextMenu,
   Host,
   Image,
-  Submenu,
-  Switch,
+  Menu,
+  Toggle,
 } from "@expo/ui/swift-ui";
 import * as React from "react";
 import { View } from "react-native";
@@ -126,28 +126,26 @@ export default function ContextMenuProfile() {
 
       case "switch":
         return (
-          <Switch
+          <Toggle
             key={index}
-            value={switchStates[option.title] || false}
+            isOn={switchStates[option.title] || false}
             label={option.title}
-            variant="checkbox"
-            onValueChange={(value) =>
+            onIsOnChange={(value) =>
               setSwitchStates((prev) => ({ ...prev, [option.title]: value }))
             }
           />
         );
       case "submenu":
         return (
-          <Submenu
+          <Menu
             key={index}
-            button={
-              <Button systemImage={option.systemImage} label={option.title} />
-            }
+            label={option.title}
+            systemImage={option.systemImage}
           >
             {option.items?.map((subItem: any, subIndex: number) =>
               renderOption(subItem, subIndex)
             )}
-          </Submenu>
+          </Menu>
         );
       default:
         return null;

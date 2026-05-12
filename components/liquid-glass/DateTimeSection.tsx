@@ -14,9 +14,7 @@ export function DateTimeSection() {
 
   return (
     <Section title="📅 Date & Time Management">
-      <Text
-        size={16}
-      >{`Current Selection: ${selectedDate.toLocaleString()}`}</Text>
+      <Text>{`Current Selection: ${selectedDate.toLocaleString()}`}</Text>
 
       <Picker
         label="Display Style"

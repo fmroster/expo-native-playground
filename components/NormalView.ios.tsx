@@ -1,7 +1,7 @@
 import {
   Host,
   HStack,
-  LinearProgress,
+  ProgressView,
   Slider,
   Text as UIText,
   VStack,
@@ -52,14 +52,14 @@ export default function NormalView() {
       <VStack modifiers={[background("#FFF"), cornerRadius(16)]}>
         <HStack spacing={32} modifiers={[padding({ all: 16 })]}>
           <VStack>
-            <UIText size={48}>{emoji}</UIText>
+            <UIText>{emoji}</UIText>
           </VStack>
 
           <VStack spacing={16}>
-            <UIText size={48}>{mood}</UIText>
+            <UIText>{mood}</UIText>
             <Slider
               value={fromSadToHappyStrings.indexOf(mood)}
-              steps={fromSadToHappyStrings.length}
+              step={1}
               max={fromSadToHappyStrings.length - 1}
               onValueChange={(value: number) => {
                 const roundedNumber = Math.round(value);
@@ -70,17 +70,10 @@ export default function NormalView() {
           </VStack>
         </HStack>
 
-        <LinearProgress
-          progress={
+        <ProgressView
+          value={
             (fromSadToHappyStrings.indexOf(mood) + 1) /
             (fromSadToHappyStrings.length - 1)
-          }
-          color={
-            fromSadToHappyStrings.indexOf(mood) < 4
-              ? "red"
-              : fromSadToHappyStrings.indexOf(mood) < 8
-              ? "orange"
-              : "green"
           }
         />
       </VStack>

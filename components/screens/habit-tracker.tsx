@@ -43,8 +43,9 @@ const getTheme = (colorScheme: "light" | "dark" | null) => {
 };
 
 export default function HabitTrackerScreen() {
-  const colorScheme = useColorScheme();
-  const theme = getTheme(colorScheme || "dark");
+  const themeValue = useColorScheme() ?? "light";
+  const themeScheme = themeValue === "unspecified" ? "light" : themeValue;
+  const theme = getTheme(themeScheme);
   const [habits, setHabits] = useState<Habit[]>([
     {
       id: "1",

@@ -7,7 +7,7 @@ import {
   Text,
   VStack,
 } from "@expo/ui/swift-ui";
-import { foregroundStyle, frame } from "@expo/ui/swift-ui/modifiers";
+import { foregroundStyle, frame, gaugeStyle } from "@expo/ui/swift-ui/modifiers";
 import React, { use } from "react";
 import { AppContext } from "./AppContext";
 import { AppState } from "./types";
@@ -35,20 +35,16 @@ export function DashboardSection() {
       <VStack spacing={20}>
         {/* Task Metrics Row */}
         <VStack spacing={12}>
-          <Text size={16}>Task Completion Metrics</Text>
+          <Text>Task Completion Metrics</Text>
           <HStack spacing={16}>
             <Gauge
-              current={{
-                value: completionRate,
-                label: `${Math.round(completionRate * 100)}%`,
-              }}
-              modifiers={[frame({ width: 100, height: 100 })]}
-              color="green"
-              type="circular"
+              value={completionRate}
+              currentValueLabel={<Text>{`${Math.round(completionRate * 100)}%`}</Text>}
+              modifiers={[frame({ width: 100, height: 100 }), gaugeStyle("circular")]}
             />
             <VStack spacing={4} alignment="leading">
-              <Text size={14}>Completion Rate</Text>
-              <Text size={12} modifiers={[foregroundStyle("gray")]}>
+              <Text>Completion Rate</Text>
+              <Text modifiers={[foregroundStyle("gray")]}>
                 {`${completedTasks} of ${totalTasks} completed`}
               </Text>
             </VStack>
@@ -57,95 +53,79 @@ export function DashboardSection() {
 
         {/* Gauge Variants Showcase */}
         <VStack spacing={12}>
-          <Text size={16}>Gauge Component Variants</Text>
+          <Text>Gauge Component Variants</Text>
 
           {/* Circular Gauges */}
           <HStack spacing={16}>
             <VStack spacing={8} alignment="center">
               <Gauge
-                current={{
-                  value: productivityScore,
-                  label: `${Math.round(productivityScore * 100)}%`,
-                }}
-                modifiers={[frame({ width: 80, height: 80 })]}
-                color="blue"
-                type="circular"
+                value={productivityScore}
+                currentValueLabel={<Text>{`${Math.round(productivityScore * 100)}%`}</Text>}
+                modifiers={[frame({ width: 80, height: 80 }), gaugeStyle("circular")]}
               />
-              <Text size={12}>Circular</Text>
+              <Text>Circular</Text>
             </VStack>
 
             <VStack spacing={8} alignment="center">
               <Gauge
-                current={{
-                  value: focusLevel,
-                  label: `${Math.round(focusLevel * 100)}%`,
-                }}
-                modifiers={[frame({ width: 80, height: 80 })]}
-                color="purple"
-                type="circularCapacity"
+                value={focusLevel}
+                currentValueLabel={<Text>{`${Math.round(focusLevel * 100)}%`}</Text>}
+                modifiers={[frame({ width: 80, height: 80 }), gaugeStyle("circularCapacity")]}
               />
-              <Text size={12}>Circular Capacity</Text>
+              <Text>Circular Capacity</Text>
             </VStack>
 
             <VStack spacing={8} alignment="center">
               <Gauge
-                current={{
-                  value: urgentTasksRate,
-                  label: `${highPriorityTasks}`,
-                }}
-                modifiers={[frame({ width: 80, height: 80 })]}
-                color={["red", "orange", "green"]}
-                type="circularCapacity"
+                value={urgentTasksRate}
+                currentValueLabel={<Text>{`${highPriorityTasks}`}</Text>}
+                modifiers={[frame({ width: 80, height: 80 }), gaugeStyle("circularCapacity")]}
               />
-              <Text size={12}>Multi-Color</Text>
+              <Text>Multi-Color</Text>
             </VStack>
           </HStack>
 
           {/* Linear Gauges */}
           <VStack spacing={8}>
-            <Text size={14}>Linear Gauge Types</Text>
+            <Text>Linear Gauge Types</Text>
 
             <VStack spacing={4}>
-              <Text size={12} modifiers={[foregroundStyle("gray")]}>
+              <Text modifiers={[foregroundStyle("gray")]}>
                 Default Linear
               </Text>
               <Gauge
-                current={{ value: completionRate }}
-                color="green"
-                type="default"
+                value={completionRate}
+                modifiers={[gaugeStyle("automatic")]}
               />
             </VStack>
 
             <VStack spacing={4}>
-              <Text size={12} modifiers={[foregroundStyle("gray")]}>
+              <Text modifiers={[foregroundStyle("gray")]}>
                 Linear
               </Text>
               <Gauge
-                current={{ value: productivityScore }}
-                color="blue"
-                type="linear"
+                value={productivityScore}
+                modifiers={[gaugeStyle("linear")]}
               />
             </VStack>
 
             <VStack spacing={4}>
-              <Text size={12} modifiers={[foregroundStyle("gray")]}>
+              <Text modifiers={[foregroundStyle("gray")]}>
                 Linear Capacity
               </Text>
               <Gauge
-                current={{ value: focusLevel }}
-                color="purple"
-                type="linearCapacity"
+                value={focusLevel}
+                modifiers={[gaugeStyle("linearCapacity")]}
               />
             </VStack>
 
             <VStack spacing={4}>
-              <Text size={12} modifiers={[foregroundStyle("gray")]}>
+              <Text modifiers={[foregroundStyle("gray")]}>
                 Gradient Linear
               </Text>
               <Gauge
-                current={{ value: (productivityScore + focusLevel) / 2 }}
-                color={["red", "yellow", "green"]}
-                type="linear"
+                value={(productivityScore + focusLevel) / 2}
+                modifiers={[gaugeStyle("linear")]}
               />
             </VStack>
           </VStack>
@@ -153,12 +133,12 @@ export function DashboardSection() {
 
         {/* Interactive Sliders */}
         <VStack spacing={12}>
-          <Text size={16}>Interactive Controls</Text>
+          <Text>Interactive Controls</Text>
 
           <VStack spacing={8}>
             <HStack spacing={12} alignment="center">
-              <Text size={14}>Productivity Score:</Text>
-              <Text size={14} modifiers={[foregroundStyle("blue")]}>
+              <Text>Productivity Score:</Text>
+              <Text modifiers={[foregroundStyle("blue")]}>
                 {`${Math.round(productivityScore * 100)}%`}
               </Text>
             </HStack>
@@ -170,8 +150,8 @@ export function DashboardSection() {
 
           <VStack spacing={8}>
             <HStack spacing={12} alignment="center">
-              <Text size={14}>Focus Level:</Text>
-              <Text size={14} modifiers={[foregroundStyle("purple")]}>
+              <Text>Focus Level:</Text>
+              <Text modifiers={[foregroundStyle("purple")]}>
                 {`${Math.round(focusLevel * 100)}%`}
               </Text>
             </HStack>
@@ -181,7 +161,7 @@ export function DashboardSection() {
 
         {/* Action Buttons */}
         <VStack spacing={8}>
-          <Text size={16}>Quick Actions</Text>
+          <Text>Quick Actions</Text>
           <HStack spacing={12}>
             <Button
               onPress={() => {
